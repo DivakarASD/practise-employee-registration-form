@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/adminlte.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/all.min.css">
+    <title>HOME</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                
+				<div class="row">
+					<div class="col-lg-8"><button style="margin-top: 30px !important;" class="btn btn-primary" onclick="window.location.href = '/form';">ADD AN EMPLOYEE</button></div>
+					<div class="col-lg-4">
+						<form th:action="@{/index}">
+	                       	<div class="form-group" style="margin-top: 10px !important;">
+	                       		<h3><label for="searchEmp">FILTER: </label></h3><br>
+	                               <input type="text" class="form-control" id="keyword" name="keyword"
+	                                   placeholder="Search" style="width: auto !important" >&nbsp;<br>
+	                                   
+	                                   <input type = "submit" class="btn btn-primary" value="SUBMIT"> &nbsp;
+	                           </div>
+	                       </form>
+	                </div>
+	                
+                </div>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h1 align="center">EMPLOYEE DATABASE</h1>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>EMPLOYEE CODE</th>
+                                    <th>NAME</th>
+                                    <th>DATE OF BIRTH</th>
+                                    <th>DOCUMENT NUMBER</th>
+                                    <th>ADDRESS</th>
+                                    <th>DATE OF ENTRY</th>
+                                    <th>UPDATE</th>
+                                    <th>DELETE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="employee: ${employees}">
+                                    <td th:text="${employee.empcode}" />
+                                    <td th:text="${employee.empname}" />
+                                    <td th:text="${employee.dob}" />
+                                    <td th:text="${employee.docnum}" />
+                                    <td th:text="${employee.address}" />
+                                    <td th:text="${employee.currDate}" />
+                                    <td><a class="btn btn-primary" th:href="@{/editForm/{code}(code = ${employee.empcode})}">Edit</a></td>
+                                    <td><a class="btn btn-primary" th:href="@{/deleteEmployee/{code}(code = ${employee.empcode})}">Delete</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/adminlte.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/all.min.css">
+    <title>Form</title>
+</head>
+
+<body onload="currentDate()">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-8">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h1 class="card-title">EMPLOYEE FORM</h3>
+                    </div>
+                    <form id="empForm" action="#" th:action="@{/form}" method="post" th:object="${employee}">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="empcode">EMPLOYEE CODE:</label><br>
+                                <input type="text" class="form-control" id="empcode" name="empcode"
+                                    placeholder="Your Code will automatically get updated" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="empname">EMPLOYEE NAME:</label><br>
+                                <input type="text" class="form-control" id="empname" name="empname"
+                                    placeholder="Enter your name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dob">DATE OF BIRTH: </label><br>
+                                <input type="date" class="form-control" id="dob" name="dob" onblur="dobCheck(this)"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="docnum">DOCUMENT NUMBER:</label><br>
+                                <input type="text" class="form-control" id="docnum" name="docnum"
+                                    placeholder="Enter your document number" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address">ADDRESS:</label><br>
+                                <input type="text" class="form-control" id="address" name="address"
+                                    placeholder="Enter your address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="currDate">CURRENT DATE: </label><br>
+                                <input type="date" class="form-control" id="currDate" name="currDate" >
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">SUBMIT</button>
+                            <button type="submit" class="btn btn-primary" onclick="window.location.href = '/index';">GO BACK</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+    </div>
+
+    <script>
+        function dobCheck(object)
+        {
+            var inputDate = new Date(object.value);
+            const d = new Date();
+
+            var diff = (inputDate.getTime() - d.getTime()) / 1000;
+            diff /= (60 * 60 * 24);
+            var final = Math.abs(Math.round(diff / 365.25));
+            if (final > 60)
+            {
+                alert("Your age is over the limit(60) " + final);
+                document.getElementById("dob").reset();
+
+            }
+            else if (final < 21)
+            {
+                alert("Your age is over the limit(60) " + final);
+                document.getElementById("dob").reset();
+
+            }
+        }
+        function currentDate()
+        {
+            const date = new Date();
+            var currentDate = date.toISOString().substring(0, 10);
+            document.getElementById("currDate").value = currentDate;
+
+            const dummyDate = new Date("1970-01-01");
+            var d = dummyDate.toISOString().substring(0, 10);
+            document.getElementById("dob").value = d;
+        }
+    </script>
+</body>
+
+</html>
